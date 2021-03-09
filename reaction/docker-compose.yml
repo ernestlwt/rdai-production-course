@@ -1,0 +1,33 @@
+version: '2.3'
+services:
+  api_server:
+    image: reaction_api_server
+    build:
+      context: .
+      dockerfile: ./dockerfile_api_server
+    restart: always
+    environment: 
+      - MQ_SERVER_URL=amqp://guest:guest@mq:5672
+    ports:
+      - "8000:8000"
+    networks:
+      - reaction_network
+  model_worker:
+    image: reaction_model_worker
+    build:
+      context: .
+      dockerfile: ./dockerfile_model_worker
+    restart: always
+    environment: 
+      - MQ_SERVER_URL=amqp://guest:guest@mq:5672
+    networks:
+      - reaction_network
+  mq:
+    image: rabbitmq:management
+    restart: always
+    ports:
+      - "15672:15672"
+    networks:
+      - reaction_network
+networks:
+  reaction_network:

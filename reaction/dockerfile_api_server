@@ -1,0 +1,14 @@
+FROM python:3.8
+
+WORKDIR /server
+
+COPY ./requirements.txt /server/requirements.txt
+
+RUN pip install -r requirements.txt
+
+COPY ./api_server.py /server/api_server.py
+COPY ./model/model.py /server/model.py
+
+EXPOSE 8000
+
+CMD ["uvicorn", "api_server:app", "--host", "0.0.0.0", "--port", "8000"]
