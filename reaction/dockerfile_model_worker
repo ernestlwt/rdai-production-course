@@ -6,8 +6,11 @@ COPY ./requirements.txt /worker/requirements.txt
 
 RUN pip install -r requirements.txt
 
-COPY ./model_worker.py /worker/model_worker.py
+COPY ./model/get_model_weights.py /worker/get_model_weights.py
+RUN python get_model_weights.py
+
 COPY ./model/model.py /worker/model.py
+COPY ./model_worker.py /worker/model_worker.py
 
 EXPOSE 8000
 

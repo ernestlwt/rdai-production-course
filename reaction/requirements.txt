@@ -1,4 +1,8 @@
 PyYAML
 fastapi
+python-multipart
 uvicorn
 reaction
+
+pillow
+tensorflow
